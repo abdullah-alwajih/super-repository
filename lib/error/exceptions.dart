@@ -2,7 +2,11 @@ part of '../super_repository.dart';
 
 enum ExceptionTypes { cache, process, connection, timeout, unexpected, empty }
 
-abstract class Exceptions extends Exception {
+abstract class Exceptions implements Exception {
+  final String? message;
+
+  const Exceptions(this.message);
+
   factory Exceptions.fromStatusCode(int statusCode, [String? message]) {
     switch (statusCode) {
       case 0:
@@ -51,6 +55,7 @@ abstract class Exceptions extends Exception {
 }
 
 class ServerException implements Exceptions {
+  @override
   final String? message;
 
   const ServerException({this.message});
@@ -60,6 +65,7 @@ class ServerException implements Exceptions {
 }
 
 class CacheException implements Exceptions {
+  @override
   final String? message;
 
   const CacheException({this.message});
@@ -69,6 +75,7 @@ class CacheException implements Exceptions {
 }
 
 class EmptyException implements Exceptions {
+  @override
   final String? message;
 
   const EmptyException({this.message});
@@ -78,6 +85,7 @@ class EmptyException implements Exceptions {
 }
 
 class InvalidException implements Exceptions {
+  @override
   final String? message;
 
   const InvalidException({this.message});
@@ -87,6 +95,7 @@ class InvalidException implements Exceptions {
 }
 
 class NotFoundException implements Exceptions {
+  @override
   final String? message;
 
   const NotFoundException({this.message});
@@ -96,6 +105,7 @@ class NotFoundException implements Exceptions {
 }
 
 class ExpireException implements Exceptions {
+  @override
   final String? message;
 
   const ExpireException({this.message});
@@ -105,6 +115,7 @@ class ExpireException implements Exceptions {
 }
 
 class UniqueException implements Exceptions {
+  @override
   final String? message;
 
   const UniqueException({this.message});
@@ -114,6 +125,7 @@ class UniqueException implements Exceptions {
 }
 
 class UserExistsException implements Exceptions {
+  @override
   final String? message;
 
   const UserExistsException({this.message});
@@ -123,6 +135,7 @@ class UserExistsException implements Exceptions {
 }
 
 class ReceiveException implements Exceptions {
+  @override
   final String? message;
 
   const ReceiveException({this.message});
@@ -132,6 +145,7 @@ class ReceiveException implements Exceptions {
 }
 
 class PasswordException implements Exceptions {
+  @override
   final String? message;
 
   const PasswordException({this.message});
@@ -141,6 +155,7 @@ class PasswordException implements Exceptions {
 }
 
 class UnexpectedException implements Exceptions {
+  @override
   final String? message;
 
   const UnexpectedException({this.message});
@@ -150,6 +165,7 @@ class UnexpectedException implements Exceptions {
 }
 
 class UnauthenticatedException implements Exceptions {
+  @override
   final String? message;
 
   const UnauthenticatedException({this.message});
@@ -159,6 +175,7 @@ class UnauthenticatedException implements Exceptions {
 }
 
 class BlockedException implements Exceptions {
+  @override
   final String? message;
 
   const BlockedException({this.message});
@@ -168,6 +185,7 @@ class BlockedException implements Exceptions {
 }
 
 class CustomException implements Exceptions {
+  @override
   final String? message;
 
   const CustomException({this.message});
@@ -177,6 +195,7 @@ class CustomException implements Exceptions {
 }
 
 class NoContentException implements Exceptions {
+  @override
   final String? message;
 
   const NoContentException({this.message});
@@ -186,6 +205,7 @@ class NoContentException implements Exceptions {
 }
 
 class ForbiddenException implements Exceptions {
+  @override
   final String? message;
 
   const ForbiddenException({this.message});
@@ -195,6 +215,7 @@ class ForbiddenException implements Exceptions {
 }
 
 class ConnectionException implements Exceptions {
+  @override
   final String? message;
 
   const ConnectionException({this.message});
@@ -204,6 +225,7 @@ class ConnectionException implements Exceptions {
 }
 
 class ProcessException implements Exceptions {
+  @override
   final String? message;
 
   const ProcessException({this.message});
@@ -213,6 +235,7 @@ class ProcessException implements Exceptions {
 }
 
 class TimeoutException implements Exceptions {
+  @override
   final String? message;
 
   const TimeoutException({this.message});
@@ -222,6 +245,7 @@ class TimeoutException implements Exceptions {
 }
 
 class ConflictException implements Exceptions {
+  @override
   final String? message;
 
   const ConflictException({this.message});
@@ -230,7 +254,8 @@ class ConflictException implements Exceptions {
       ConflictException(message: message ?? this.message);
 }
 
-class UnknownException implements Exception {
+class UnknownException implements Exceptions {
+  @override
   final String? message;
 
   const UnknownException({this.message});
@@ -239,7 +264,8 @@ class UnknownException implements Exception {
       UnknownException(message: message ?? this.message);
 }
 
-class ValidationException implements Exception {
+class ValidationException implements Exceptions {
+  @override
   final String? message;
 
   const ValidationException({this.message});
