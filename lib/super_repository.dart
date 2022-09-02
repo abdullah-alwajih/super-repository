@@ -5,10 +5,12 @@ import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:flutter/material.dart';
 
 part 'error/exceptions.dart';
 part 'provider/base_model.dart';
 part 'provider/local/local.dart';
+part 'provider/local/storage.dart';
 part 'provider/main_provider.dart';
 part 'provider/network_manager.dart';
 part 'provider/remote/remote.dart';
