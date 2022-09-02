@@ -1,21 +1,21 @@
 part of '../../super_repository.dart';
 
 class Request {
-  final String pathURL;
+  final String url;
   final Map<String, dynamic>? header;
   final Map<String, dynamic> query;
   final dynamic body;
   final bool nullable;
 
   const Request({
-    required this.pathURL,
+    required this.url,
     this.nullable = false,
     this.query = const {},
     this.body = const {},
     this.header,
   });
 
-  String get urlQuery => pathURL + query.toString();
+  String get urlQuery => url + query.toString();
 
   static Map<String, dynamic> addMap({
     required Map<String, dynamic> header,

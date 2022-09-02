@@ -6,7 +6,7 @@ abstract class BaseModel {
 
   BaseModel fromJson(Map<String, dynamic> element);
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson()=>{};
 
-  List<Map<String, dynamic>> toJsonList();
+  List<dynamic> toJsonList()=>[];
 }

@@ -40,7 +40,7 @@ class Remote {
     dynamic response;
     try {
       response = await dio!.request(
-        request.pathURL,
+        request.url,
         queryParameters: request.query,
         data: request.body,
         options: Options(
