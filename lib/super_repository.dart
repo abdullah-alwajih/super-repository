@@ -9,8 +9,8 @@ import 'package:get_storage/get_storage.dart';
 part 'error/exceptions.dart';
 part 'provider/base_model.dart';
 part 'provider/local/local.dart';
-part 'provider/main.provider.dart';
-part 'provider/network.manager.dart';
+part 'provider/main_provider.dart';
+part 'provider/network_manager.dart';
 part 'provider/remote/remote.dart';
 part 'provider/remote/request.dart';
 
