@@ -1,0 +1,24 @@
+name: super_repository
+description: A new Flutter project.
+version: 0.0.1
+homepage: https://github.com/abdullahAlwajih/Super-Repository
+
+environment:
+  sdk: '>=2.18.0 <3.0.0'
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # remote
+  dio: ^4.0.6
+  connectivity_plus: ^2.3.6+1
+
+  # local
+  get_storage: ^2.0.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.1
