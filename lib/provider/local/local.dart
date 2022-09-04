@@ -23,7 +23,6 @@ class Local {
 
   dynamic read({required String key}) {
     if (_storage.hasData(key)) return _storage.read(key);
-    throw Exceptions.fromEnumeration(ExceptionTypes.connection);
   }
 
   void delete({required String key}) {
