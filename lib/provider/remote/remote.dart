@@ -42,7 +42,7 @@ class Remote {
       response = await dio!.request(
         request.url,
         queryParameters: request.query,
-        data: request.body,
+        data: request.data ?? FormData.fromMap(request.fromData),
         options: Options(
             method: method.name,
             headers: Request.addMap(

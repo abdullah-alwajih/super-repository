@@ -4,14 +4,16 @@ class Request {
   final String url;
   final Map<String, dynamic>? header;
   final Map<String, dynamic> query;
-  final dynamic body;
+  final dynamic data;
+  final dynamic fromData;
   final bool nullable;
 
   const Request({
     required this.url,
     this.nullable = false,
     this.query = const {},
-    this.body = const {},
+    this.data ,
+    this.fromData ,
     this.header,
   });
 

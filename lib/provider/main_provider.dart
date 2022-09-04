@@ -51,13 +51,13 @@ class DataProvider {
         }
         if (shouldCache) {
           local.create(
-              key: request.urlQuery + request.body, value: request.body);
+              key: request.urlQuery + request.data, value: request.data);
         }
 
         return response;
       } else if (shouldCache) {
-        request.body == local.read(key: request.urlQuery + request.body)
-            ? response = local.read(key: request.urlQuery + request.body)
+        request.data == local.read(key: request.urlQuery + request.data)
+            ? response = local.read(key: request.urlQuery + request.data)
             : throw const ConflictException();
         if (response != null) return response;
         throw Exceptions.fromEnumeration(ExceptionTypes.connection);
