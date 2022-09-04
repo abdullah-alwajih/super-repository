@@ -25,12 +25,12 @@ class SuperRepository {
 
   /// This is the initialization of the main class of Wings framework
   /// and it should be called before runApp() is called
-  // static Future<void> init() async {
-  //   _instance ??= SuperRepository();
-  //   await DataProvider.init();
-  // }
+  static Future<void> initialize() async {
+    _instance ??= SuperRepository();
+    await DataProvider.init();
+  }
 
-  Map<String, dynamic> defaultHeaders = {};
+  Map<String, dynamic> defaultHeader = {};
 
   Future<dynamic> getData({
     required Request request,
