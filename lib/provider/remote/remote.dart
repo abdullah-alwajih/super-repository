@@ -77,11 +77,11 @@ class Remote {
       // return response.data['data'];
 
     } on DioError catch (error) {
-      statusCode = error.response!.statusCode!;
       final message = error.response!.data['message'] ??
-          error.response!.data['error']['message'];
+          error.response!.data['Message'] ??
+          error.response!.data['error']?['message'];
       if (!success) {
-        throw Exceptions.fromStatusCode(statusCode, message);
+        throw Exceptions.fromStatusCode(error.response!.statusCode!, message);
       }
     } catch (exception) {
       rethrow;
