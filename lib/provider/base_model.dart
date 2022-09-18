@@ -1,12 +1,12 @@
 part of '../super_repository.dart';
 
 class Model {
-  final int offset;
-  final int limit;
+  final int? offset;
+  final int? limit;
 
   const Model({
-    this.limit = 12,
-    this.offset = 0,
+    this.limit,
+    this.offset,
   });
 
   Model copyWith({
