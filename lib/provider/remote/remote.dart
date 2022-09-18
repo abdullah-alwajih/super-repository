@@ -10,7 +10,7 @@ class Remote {
     return _instance!;
   }
 
-  Dio? dio;
+  late Dio dio;
 
   static void init() {
     _instance ??= Remote();
@@ -39,7 +39,7 @@ class Remote {
   }) async {
     dynamic response;
     try {
-      response = await dio!.request(
+      response = await dio.request(
         request.url,
         queryParameters: request.query,
         data: request.fromData == null
