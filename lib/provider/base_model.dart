@@ -20,7 +20,7 @@ class Model {
   }
 }
 
-abstract class BaseModel implements Model {
+ abstract class BaseModel extends Model {
   const BaseModel();
 
   List<BaseModel> fromJsonList(List<dynamic> elements);
