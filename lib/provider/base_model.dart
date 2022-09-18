@@ -1,12 +1,12 @@
 part of '../super_repository.dart';
 
- class Model {
+class Model {
   final int offset;
   final int limit;
 
   const Model({
-    required this.offset,
-    required this.limit,
+    this.limit = 12,
+    this.offset = 0,
   });
 
   Model copyWith({
@@ -20,9 +20,8 @@ part of '../super_repository.dart';
   }
 }
 
-abstract class BaseModel extends Model {
-  const BaseModel({required super.offset, required super.limit});
-
+abstract class BaseModel implements Model {
+  const BaseModel();
 
   List<BaseModel> fromJsonList(List<dynamic> elements);
 
@@ -34,6 +33,4 @@ abstract class BaseModel extends Model {
 
   static Future fromMultipartFile(String filePath) async =>
       await MultipartFile.fromFile(filePath);
-
-
 }
