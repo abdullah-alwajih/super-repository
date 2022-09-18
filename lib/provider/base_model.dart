@@ -1,6 +1,8 @@
 part of '../super_repository.dart';
 
 abstract class BaseModel {
+  const BaseModel();
+
   List<BaseModel> fromJsonList(List<dynamic> elements);
 
   BaseModel fromJson(Map<String, dynamic> element);
