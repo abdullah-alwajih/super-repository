@@ -1,7 +1,17 @@
 part of '../super_repository.dart';
 
-abstract class BaseModel {
-  const BaseModel();
+abstract class Model {
+  final int offset;
+  final int limit;
+
+  const Model({
+    required this.offset,
+    required this.limit,
+  });
+}
+
+abstract class BaseModel extends Model {
+  const BaseModel({required super.offset, required super.limit});
 
   List<BaseModel> fromJsonList(List<dynamic> elements);
 
