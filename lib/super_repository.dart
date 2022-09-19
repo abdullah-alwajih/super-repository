@@ -63,11 +63,9 @@ class SuperRepository {
       //   }
       // } else {
 
-      model?.copyWith(
-          limit: response['limit'] ?? 12, offset: response['offset'] ?? 0);
-      response = response['data'];
-
       if (model != null) {
+        response = response['data'];
+
         if (response is List) {
           return model.fromJsonList(response);
         } else if (response is Map<String, dynamic>) {

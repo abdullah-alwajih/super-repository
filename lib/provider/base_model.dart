@@ -1,26 +1,19 @@
 part of '../super_repository.dart';
 
-class Model {
-  final int? offset;
-  final int? limit;
+// class Base extends BaseModel {
+//   final int? offset;
+//   final int? limit;
+//   final List? data;
+//
+//   const Base({
+//     this.limit,
+//     this.offset,
+//     this.data,
+//   });
+//
+// }
 
-  const Model({
-    this.limit,
-    this.offset,
-  });
-
-  Model copyWith({
-    int? offset,
-    int? limit,
-  }) {
-    return Model(
-      offset: offset ?? this.offset,
-      limit: limit ?? this.limit,
-    );
-  }
-}
-
- abstract class BaseModel extends Model {
+abstract class BaseModel {
   const BaseModel();
 
   List<BaseModel> fromJsonList(List<dynamic> elements);
