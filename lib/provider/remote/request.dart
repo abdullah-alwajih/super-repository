@@ -12,19 +12,21 @@ class Request {
     required this.url,
     this.nullable = false,
     this.parameters = const {},
-    this.data ,
-    this.fromData ,
+    this.data,
+    this.fromData,
     this.header,
   });
 
   String get urlQuery => url + parameters.toString();
 
   static Map<String, dynamic> addMap({
-    required Map<String, dynamic> header,
-    required  Map<String, dynamic>? defaultHeader,
+    required Map<String, dynamic>? header,
+    required Map<String, dynamic> defaultHeader,
   }) {
-    if (defaultHeader == null) return header;
-    defaultHeader.forEach((key, value) => header[key] = value);
+    if (header == null) return defaultHeader;
+    defaultHeader.forEach((key, value) {
+      if (!header.containsKey(key)) header[key] = value;
+    });
     return header;
   }
 
@@ -44,5 +46,3 @@ class Request {
 //   return _query;
 // }
 }
-
-

@@ -48,7 +48,7 @@ class Remote {
         options: Options(
             method: method.name,
             headers: Request.addMap(
-                header: request.header ?? {},
+                header: request.header,
                 defaultHeader: SuperRepository.instance.defaultHeader)),
         onSendProgress: (sent, total) {
           sendingRemaining = (total - sent) / total * 100;
