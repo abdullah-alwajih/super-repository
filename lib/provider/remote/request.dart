@@ -29,20 +29,4 @@ class Request {
     });
     return header;
   }
-
-// String _queryFormat() {
-//   String _query = '';
-//     debugPrint(query.toString());
-//   if (query.isNotEmpty) {
-//     _query = '?';
-//
-//     query.forEach((key, value) {
-//       _query += '$key=$value&';
-//     });
-//
-//     _query = _query.substring(0, query.length - 1);
-//   }
-//
-//   return _query;
-// }
 }

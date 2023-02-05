@@ -19,8 +19,6 @@ class DataProvider {
   Local get local => Local.instance;
 
 
-  int get statusCode => remote.statusCode;
-
   bool get remoteConnection => NetworkManager.instance.hasConnection;
 
   Future<dynamic> update(
@@ -34,7 +32,6 @@ class DataProvider {
 
       return response;
     } catch (exception) {
-      // error = mapExceptionToMessage(exception);
       rethrow;
     }
   }
@@ -66,8 +63,6 @@ class DataProvider {
       }
     } catch (exception) {
       rethrow;
-      // log('insert has exception of type $exception');
-      // throw mapExceptionToMessage(exception);
     }
   }
 
@@ -81,8 +76,6 @@ class DataProvider {
       }
     } catch (exception) {
       rethrow;
-      // log('delete has exception of type $exception');
-      // error = mapExceptionToMessage(exception);
     }
   }
 
@@ -112,8 +105,6 @@ class DataProvider {
       return response;
     } catch (exception) {
       rethrow;
-      // log('get has exception of type $exception');
-      // error = mapExceptionToMessage(exception);
     }
   }
 }

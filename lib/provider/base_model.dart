@@ -1,18 +1,5 @@
 part of '../super_repository.dart';
 
-// class Base extends BaseModel {
-//   final int? offset;
-//   final int? limit;
-//   final List? data;
-//
-//   const Base({
-//     this.limit,
-//     this.offset,
-//     this.data,
-//   });
-//
-// }
-
 abstract class BaseModel {
   const BaseModel();
 

@@ -26,12 +26,8 @@ class Remote {
     _instance!.dio = Dio(options);
   }
 
-  dynamic statusCode = 0;
   double sendingRemaining = 0.0;
   double receiveRemaining = 0.0;
-
-  bool get success =>
-      statusCode == 200 || statusCode == 201 || statusCode == 202;
 
   Future<dynamic> send({
     required Request request,
@@ -40,65 +36,39 @@ class Remote {
     dynamic response;
     try {
       response = await dio.request(
-        request.url,
-        queryParameters: request.parameters,
+        request.url, queryParameters: request.parameters,
         data: request.fromData == null
             ? request.data
             : FormData.fromMap(request.fromData),
         options: Options(
-            method: method.name,
-            headers: Request.addMap(
-                header: request.header,
-                defaultHeader: SuperRepository.instance.defaultHeader)),
-        onSendProgress: (sent, total) {
-          sendingRemaining = (total - sent) / total * 100;
-        },
-        onReceiveProgress: (received, total) {
-          receiveRemaining = (total - received) / total * 100;
-        },
+          method: method.name,
+          headers: Request.addMap(
+              header: request.header,
+              defaultHeader: SuperRepository.instance.defaultHeader),
+        ),
+        // onSendProgress: (sent, total) {
+        //   sendingRemaining = (total - sent) / total * 100;
+        // },
+        // onReceiveProgress: (received, total) {
+        //   receiveRemaining = (total - received) / total * 100;
+        // },
       );
       // .timeout(
-      //
       //   Duration(milliseconds: dio!.options.sendTimeout),
       //   onTimeout: () {
-      //     log(' dio!.options.sendTimeout');
       //     throw Exceptions.fromEnumeration(ExceptionTypes.timeout);
       //   },
       // );
 
-      statusCode = response.statusCode!;
-
-      if (!success) {
-        throw Exceptions.fromStatusCode(statusCode);
-      }
-
-      _checkInvalidResponse(response.data);
-
       return response.data;
-      // if (response.data['data'] == null || response.data['data'].isEmpty) return response.data;
-      // return response.data['data'];
-
     } on DioError catch (error) {
-      final message = error.response!.data['message'] ??
-          error.response!.data['Message'] ??
-          error.response!.data['error']?['message'];
-      if (!success) {
-        throw Exceptions.fromStatusCode(error.response!.statusCode!, message);
-      }
+      final message = error.response?.data['message'] ??
+          error.response?.data['Message'] ??
+          error.message ??
+          error.response?.data['error']?['message'];
+      throw Exceptions.fromStatusCode(error.response!.statusCode!, message);
     } catch (exception) {
       rethrow;
-      //   SuperRepository.provider.error = mapExceptionToMessage(exception);
     }
-  }
-
-  void _checkInvalidResponse(response) {
-    if (response.toString().isEmpty) {
-      throw Exceptions.fromStatusCode(404);
-    }
-
-    // if (!WingsResponseFormat.validatedResponse(response.toString())) {
-    //   log('Invalid Response from the Server', name: 'Wings Remote');
-    //   throw Exceptions.fromStatusCode(0);
-    // }
   }
 }
