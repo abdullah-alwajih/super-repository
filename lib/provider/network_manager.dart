@@ -34,7 +34,6 @@ class NetworkManager {
       _hasConnection = await checkUserConnection();
     } else {
       _hasConnection = false;
-      throw Exceptions.fromEnumeration(ExceptionTypes.connection);
     }
     if (!_hasConnection) {
       throw Exceptions.fromEnumeration(ExceptionTypes.connection);
