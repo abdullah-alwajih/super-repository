@@ -47,7 +47,6 @@ class SuperRepository {
     try {
       var response =
           await provider.get(request: request, shouldCache: shouldCache);
-
       return await responseFormat(response, model);
     } catch (_) {
       rethrow;
@@ -69,19 +68,17 @@ class SuperRepository {
   }
 
   Future<dynamic> responseFormat(dynamic response, BaseModel? model) async {
-    if (model != null) {
-      if (!(response['status'] ?? true)) throw response['message'];
+    if (model == null) return response;
 
-      response = response['data'];
-      if (response == null || response.isEmpty) return response['message'];
+    if (!(response['status'] ?? true)) throw response['message'];
 
-      if (response is List) {
-        return model.fromJsonList(response);
-      } else if (response is Map<String, dynamic>) {
-        return model.fromJson(response);
-      } else {
-        return response;
-      }
+    response = response['data'];
+    if (response == null || response.isEmpty) return response['message'];
+
+    if (response is List) {
+      return model.fromJsonList(response);
+    } else if (response is Map<String, dynamic>) {
+      return model.fromJson(response);
     } else {
       return response;
     }
