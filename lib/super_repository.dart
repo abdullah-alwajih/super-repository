@@ -70,7 +70,7 @@ class SuperRepository {
   Future<dynamic> responseFormat(dynamic response, BaseModel? model) async {
     if (model == null) return response;
 
-    if (!(response['status'] ?? true)) throw response['message'];
+    if (!(response['success'] ?? true)) throw response['message'];
 
     response = response['data'];
     if (response == null || response.isEmpty) return response['message'];

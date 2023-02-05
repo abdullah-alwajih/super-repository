@@ -5,9 +5,9 @@ abstract class AppStorage {
 
   // language
   static set setLocaleCode(String languageCode) =>
-      _local.create(key: 'selected-language', value: languageCode);
+      _local.create(key: 'language-code', value: languageCode);
 
-  static Locale get getLocale => Locale(_local.read(key: 'selected-language') ??
+  static Locale get getLocale => Locale(_local.read(key: 'language-code') ??
       Platform.localeName.substring(0, 2));
 
   // Theme
