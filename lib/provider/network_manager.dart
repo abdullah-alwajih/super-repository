@@ -24,8 +24,7 @@ class NetworkManager {
       await _updateState(await _connectivity.checkConnectivity());
       _connectivity.onConnectivityChanged.listen(_updateState);
     } catch (exception) {
-      _hasConnection = false;
-      throw Exceptions.fromEnumeration(ExceptionTypes.connection);
+      rethrow;
     }
   }
 
