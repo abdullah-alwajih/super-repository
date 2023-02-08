@@ -352,7 +352,7 @@ packages:
       path: "."
       ref: HEAD
       resolved-ref: b5287bb917f99e0a779107eba323594d75230767
-      url: "https://github.com/abdullahAlwajih/Super-Localizations.git"
+      url: "https://github.com/Abdullah-AlWajih/super-localizations.git"
     source: git
     version: "0.0.6"
   super_repository:
@@ -360,10 +360,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "94cd45737e2c026f0ed6537060ca94a4c9b3c311"
-      url: "https://github.com/abdullahAlwajih/Super-Repository.git"
+      resolved-ref: "6b8152c1d1f794f2619710b51fe7c4138b10f6f9"
+      url: "https://github.com/Abdullah-AlWajih/super-repository.git"
     source: git
-    version: "0.2.1"
+    version: "0.2.2"
   term_glyph:
     dependency: transitive
     description:
