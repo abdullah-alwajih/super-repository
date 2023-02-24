@@ -43,7 +43,7 @@ class SuperRepository {
     required Request request,
     required BaseModel? model,
     bool shouldCache = true,
-    bool isPagination = true,
+    bool isPagination = false,
   }) async {
     try {
       var response =
