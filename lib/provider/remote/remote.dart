@@ -36,7 +36,7 @@ class Remote {
     dynamic response;
     try {
       response = await dio.request(
-        request.url, queryParameters: request.parameters,
+        request.url, queryParameters: request.query,
         data: request.fromData == null
             ? request.data
             : FormData.fromMap(request.fromData),
