@@ -1,4 +1,4 @@
-part of '../super_repository.dart';
+part of 'super_repository.dart';
 
 abstract class BaseModel {
   const BaseModel();

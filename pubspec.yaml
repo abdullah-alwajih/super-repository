@@ -13,8 +13,8 @@ dependencies:
     sdk: flutter
 
   # remote
-  dio: ^4.0.6
-  connectivity_plus: ^3.0.2
+  dio: ^5.0.1
+  connectivity_plus: ^3.0.3
 
   # local
   get_storage: ^2.0.3

@@ -20,7 +20,7 @@ class Remote {
       // connectTimeout: 5000,
       // connectTimeout: 5000,
       // receiveTimeout: 3000,
-      sendTimeout: 300000,
+      // sendTimeout: 300000,
     );
 
     _instance!.dio = Dio(options);

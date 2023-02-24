@@ -7,9 +7,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 
-part 'error/exceptions.dart';
+part 'base_model.dart';
 
-part 'provider/base_model.dart';
+part 'error/exceptions.dart';
 
 part 'provider/local/local.dart';
 
@@ -70,7 +70,10 @@ class SuperRepository {
   Future<dynamic> responseFormat(dynamic response, BaseModel? model) async {
     if (model == null) return response;
 
-    if (!(response['success'] ?? true)) throw response['message'];
+    if (!(response['success'] ?? true) ||
+        (response['status'].runtimeType is bool && !response['status'])) {
+      throw response['message'];
+    }
 
     response = response['data'];
     if (response == null || response.isEmpty) return response['message'];

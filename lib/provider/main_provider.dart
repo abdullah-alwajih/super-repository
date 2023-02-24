@@ -10,8 +10,8 @@ class DataProvider {
 
   static Future<void> init() async {
     _instance ??= DataProvider();
-    await NetworkManager.init();
     await Local.init();
+    await NetworkManager.init();
   }
 
   Remote get remote => Remote.instance;

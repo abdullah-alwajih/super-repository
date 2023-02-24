@@ -24,7 +24,7 @@ class NetworkManager {
       await _updateState(await _connectivity.checkConnectivity());
       _connectivity.onConnectivityChanged.listen(_updateState);
     } catch (exception) {
-      // rethrow;
+      rethrow;
     }
   }
 
@@ -34,9 +34,9 @@ class NetworkManager {
     } else {
       _hasConnection = false;
     }
-    if (!_hasConnection) {
-      throw Exceptions.fromEnumeration(ExceptionTypes.connection);
-    }
+    // if (!_hasConnection) {
+    //   throw Exceptions.fromEnumeration(ExceptionTypes.connection);
+    // }
   }
 
   Future<bool> checkUserConnection() async {
