@@ -43,11 +43,12 @@ class SuperRepository {
     required Request request,
     required BaseModel? model,
     bool shouldCache = true,
+    bool isPagination = true,
   }) async {
     try {
       var response =
           await provider.get(request: request, shouldCache: shouldCache);
-      return await responseFormat(response, model);
+      return await responseFormat(response, model, isPagination);
     } catch (_) {
       rethrow;
     }
@@ -67,7 +68,8 @@ class SuperRepository {
     }
   }
 
-  Future<dynamic> responseFormat(dynamic response, BaseModel? model) async {
+  Future<dynamic> responseFormat(dynamic response, BaseModel? model,
+      [bool isPagination = false]) async {
     if (model == null) return response;
 
     if (!(response['success'] ?? true) ||
@@ -75,9 +77,9 @@ class SuperRepository {
       throw response['message'];
     }
 
-    response = response['data'];
-    if (response == null || response.isEmpty) return response['message'];
+    if (response['data']?.isEmpty ?? true) return response['message'];
 
+    response = isPagination ? response['data']['data'] : response['data'];
     if (response is List) {
       return model.fromJsonList(response);
     } else if (response is Map<String, dynamic>) {
