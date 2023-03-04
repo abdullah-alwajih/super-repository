@@ -73,7 +73,7 @@ class SuperRepository {
     if (model == null) return response;
 
     if (!(response['success'] ?? true) ||
-        (response['status'].runtimeType is bool && !response['status'])) {
+        (response['status'] is bool && !response['status'])) {
       throw response['message'];
     }
 
