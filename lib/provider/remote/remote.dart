@@ -62,9 +62,7 @@ class Remote {
       return response.data;
     } on DioError catch (error) {
       late String? message;
-      if (error.response?.data == null || error.response?.data is String) {
-        // message = error.response?.statusMessage ?? error.message;
-      } else {
+      if (error.response?.data is Map) {
         message = error.response?.data['message'] ??
             error.response?.data['Message'] ??
             error.response?.data['error']?['message'] ??
