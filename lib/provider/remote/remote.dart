@@ -63,13 +63,13 @@ class Remote {
     } on DioError catch (error) {
       late String? message;
       if (error.response?.data == null || error.response?.data is String) {
-        message = error.response?.statusMessage ?? error.message;
+        // message = error.response?.statusMessage ?? error.message;
       } else {
         message = error.response?.data['message'] ??
             error.response?.data['Message'] ??
             error.response?.data['error']?['message'] ??
-            error.response?.data ??
             error.response?.statusMessage;
+            error.message;
       }
       throw Exceptions.fromStatusCode(error.response!.statusCode!, message);
     } catch (exception) {
