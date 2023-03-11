@@ -69,7 +69,7 @@ class Remote {
             error.response?.statusMessage;
             error.message;
       }
-      throw Exceptions.fromStatusCode(error.response!.statusCode!, message);
+      throw Exceptions.fromStatusCode(error.response?.statusCode, message);
     } catch (exception) {
       rethrow;
     }
