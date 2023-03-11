@@ -69,18 +69,20 @@ class SuperRepository {
       dynamic response, BaseModel? model, Request request) async {
     if (model == null) return response;
 
-    if (!(response[_response.check] ?? true)) throw response[_response.message];
+    if (!(response[_instance?._response.check] ?? true)) {
+      throw response[_instance?._response.message];
+    }
 
-    if (response[_response.data]?.isEmpty ?? true) {
-      return response[_response.message];
+    if (response[_instance?._response.data]?.isEmpty ?? true) {
+      return response[_instance?._response.message];
     }
 
     response = (request.query?.containsKey('offset') ?? false) ||
             (request.query?.containsKey('page') ?? false)
-        ? (_response.pagination == null
-            ? response[_response.data]
-            : response[_response.data][_response.pagination])
-        : response[_response.data];
+        ? (_instance?._response.pagination == null
+            ? response[_instance?._response.data]
+            : response[_instance?._response.data][_response.pagination])
+        : response[_instance?._response.data];
     if (response is List) {
       return model.fromJsonList(response);
     } else if (response is Map<String, dynamic>) {
