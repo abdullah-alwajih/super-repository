@@ -15,13 +15,12 @@ class Remote {
   static void init() {
     _instance ??= Remote();
 
-    var options = BaseOptions(
-      // baseUrl: AppUrls.baseURL,
-      // connectTimeout: 5000,
-      // connectTimeout: 5000,
-      // receiveTimeout: 3000,
-      // sendTimeout: 300000,
-    );
+    var options = BaseOptions(// baseUrl: AppUrls.baseURL,
+        // connectTimeout: 5000,
+        // connectTimeout: 5000,
+        // receiveTimeout: 3000,
+        // sendTimeout: 300000,
+        );
 
     _instance!.dio = Dio(options);
   }
@@ -62,10 +61,16 @@ class Remote {
 
       return response.data;
     } on DioError catch (error) {
-      final message = error.response?.data['message'] ??
-          error.response?.data['Message'] ??
-          error.message ??
-          error.response?.data['error']?['message'];
+      late String? message;
+      if (error.response?.data == null || error.response?.data is String) {
+        message = error.response?.statusMessage ?? error.message;
+      } else {
+        message = error.response?.data['message'] ??
+            error.response?.data['Message'] ??
+            error.response?.data['error']?['message'] ??
+            error.response?.data ??
+            error.response?.statusMessage;
+      }
       throw Exceptions.fromStatusCode(error.response!.statusCode!, message);
     } catch (exception) {
       rethrow;
