@@ -62,7 +62,7 @@ class SuperRepository {
     try {
       var response =
           await provider.insert(request: request, shouldCache: shouldCache);
-      return await responseFormat(response, model);
+      return await responseFormat(response, model, request);
     } catch (_) {
       rethrow;
     }
