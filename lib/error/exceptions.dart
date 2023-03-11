@@ -7,7 +7,7 @@ abstract class Exceptions implements Exception {
 
   const Exceptions(this.message);
 
-  factory Exceptions.fromStatusCode([int? statusCode = 4000, String? message]) {
+  factory Exceptions.fromStatusCode([int? statusCode = 400, String? message]) {
     switch (statusCode) {
       case 0:
         return CustomException(message: message);
