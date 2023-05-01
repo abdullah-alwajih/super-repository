@@ -1,7 +1,7 @@
 part of '../../../super_repository.dart';
 
 abstract class AppStorage {
-  static final _local = SuperRepository.provider.local;
+  static final _local = SuperRepository.sources.local;
 
   // language
   static set setLocaleCode(String languageCode) =>

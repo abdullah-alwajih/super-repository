@@ -1,15 +1,15 @@
 part of '../../super_repository.dart';
 
-class DataProvider {
-  static DataProvider? _instance;
+class DataSources {
+  static DataSources? _instance;
 
-  static DataProvider get instance {
+  static DataSources get instance {
     if (_instance == null) init();
     return _instance!;
   }
 
   static Future<void> init() async {
-    _instance ??= DataProvider();
+    _instance ??= DataSources();
     await Local.init();
     await NetworkManager.init();
   }

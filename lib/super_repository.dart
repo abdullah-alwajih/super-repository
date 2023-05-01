@@ -22,7 +22,7 @@ class SuperRepository {
 
   static SuperRepository get instance => _instance ??= SuperRepository();
 
-  static DataProvider get provider => DataProvider.instance;
+  static DataSources get sources => DataSources.instance;
 
   Map<String, dynamic> defaultHeader = {};
 
@@ -33,7 +33,7 @@ class SuperRepository {
   static Future<void> initialize(
       {ResponseModel response = const ResponseModel()}) async {
     _instance ??= SuperRepository();
-    await DataProvider.init();
+    await DataSources.init();
     _instance?._response = response;
   }
 
@@ -44,7 +44,7 @@ class SuperRepository {
   }) async {
     try {
       var response =
-          await provider.get(request: request, shouldCache: shouldCache);
+          await sources.get(request: request, shouldCache: shouldCache);
       return await responseFormat(response, model, request);
     } catch (_) {
       rethrow;
@@ -58,7 +58,7 @@ class SuperRepository {
   }) async {
     try {
       var response =
-          await provider.insert(request: request, shouldCache: shouldCache);
+          await sources.insert(request: request, shouldCache: shouldCache);
       return await responseFormat(response, model, request);
     } catch (_) {
       rethrow;
