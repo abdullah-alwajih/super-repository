@@ -1,4 +1,4 @@
-part of '../super_repository.dart';
+part of '../../super_repository.dart';
 
 enum ExceptionTypes { cache, process, connection, timeout, unexpected, empty }
 
@@ -35,7 +35,7 @@ abstract class Exceptions implements Exception {
         return ConflictException(message: message);
       case 410:
         return GoneException(message: message);
-        case 411:
+      case 411:
         return LengthRequiredException(message: message);
       case 434:
         return UserExistsException(message: message);

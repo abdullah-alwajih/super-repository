@@ -1,4 +1,4 @@
-part of '../../super_repository.dart';
+part of '../../../super_repository.dart';
 
 enum HttpMethod { get, post, put, delete }
 
@@ -67,7 +67,7 @@ class Remote {
             error.response?.data['Message'] ??
             error.response?.data['error']?['message'] ??
             error.response?.statusMessage;
-            error.message;
+        error.message;
       }
       throw Exceptions.fromStatusCode(error.response?.statusCode, message);
     } catch (exception) {

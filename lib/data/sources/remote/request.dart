@@ -1,4 +1,4 @@
-part of '../../super_repository.dart';
+part of '../../../super_repository.dart';
 
 class Request {
   final String url;

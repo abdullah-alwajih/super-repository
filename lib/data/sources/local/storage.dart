@@ -1,4 +1,4 @@
-part of '../../super_repository.dart';
+part of '../../../super_repository.dart';
 
 abstract class AppStorage {
   static final _local = SuperRepository.provider.local;
@@ -7,8 +7,8 @@ abstract class AppStorage {
   static set setLocaleCode(String languageCode) =>
       _local.create(key: 'language-code', value: languageCode);
 
-  static Locale get getLocale => Locale(_local.read(key: 'language-code') ??
-      Platform.localeName.substring(0, 2));
+  static Locale get getLocale => Locale(
+      _local.read(key: 'language-code') ?? Platform.localeName.substring(0, 2));
 
   // Theme
   static set setThemeMode(ThemeMode mode) =>

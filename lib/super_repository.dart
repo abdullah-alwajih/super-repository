@@ -7,15 +7,15 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 
-part 'error/exceptions.dart';
-part 'provider/local/local.dart';
-part 'provider/local/storage.dart';
-part 'provider/main_provider.dart';
-part 'provider/models/base.dart';
-part 'provider/models/response.dart';
-part 'provider/network_manager.dart';
-part 'provider/remote/remote.dart';
-part 'provider/remote/request.dart';
+part 'data/models/base.dart';
+part 'data/models/exceptions.dart';
+part 'data/models/response.dart';
+part 'data/sources/data_sources.dart';
+part 'data/sources/local/local.dart';
+part 'data/sources/local/storage.dart';
+part 'data/sources/network_manager.dart';
+part 'data/sources/remote/remote.dart';
+part 'data/sources/remote/request.dart';
 
 class SuperRepository {
   static SuperRepository? _instance;

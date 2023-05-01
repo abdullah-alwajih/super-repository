@@ -1,4 +1,3 @@
-
 import 'package:super_localizations/super_localizations.dart';
 
 abstract class FirebaseErrors {
