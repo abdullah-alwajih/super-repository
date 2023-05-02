@@ -5,24 +5,20 @@ enum HttpMethod { get, post, put, delete }
 class Remote {
   static Remote? _instance;
 
-  static Remote get instance {
-    if (_instance == null) init();
-    return _instance!;
-  }
+  static Remote get instance => _instance ??= init();
 
   late Dio dio;
 
-  static void init() {
+  static Remote init() {
     _instance ??= Remote();
-
     var options = BaseOptions(// baseUrl: AppUrls.baseURL,
         // connectTimeout: 5000,
         // connectTimeout: 5000,
         // receiveTimeout: 3000,
         // sendTimeout: 300000,
         );
-
     _instance!.dio = Dio(options);
+    return instance;
   }
 
   double sendingRemaining = 0.0;

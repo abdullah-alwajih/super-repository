@@ -10,7 +10,6 @@ import 'package:get_storage/get_storage.dart';
 part 'data/models/base.dart';
 part 'data/models/exceptions.dart';
 part 'data/models/response.dart';
-part 'data/sources/data_sources.dart';
 part 'data/sources/local/local.dart';
 part 'data/sources/local/storage.dart';
 part 'data/sources/network_manager.dart';
@@ -18,71 +17,143 @@ part 'data/sources/remote/remote.dart';
 part 'data/sources/remote/request.dart';
 
 class SuperRepository {
-  static SuperRepository? _instance;
+  static late SuperRepository _instance;
 
-  static SuperRepository get instance => _instance ??= SuperRepository();
-
-  static DataSources get sources => DataSources.instance;
+  static SuperRepository get instance => _instance;
 
   Map<String, dynamic> defaultHeader = {};
 
   late ResponseModel _response;
 
+  Remote get remote => Remote.instance;
+
+  Local get local => Local.instance;
+
+  bool get remoteConnection => NetworkManager.instance.hasConnection;
+
   /// This is the initialization of the main class of Wings framework
   /// and it should be called before runApp() is called
   static Future<void> initialize(
       {ResponseModel response = const ResponseModel()}) async {
-    _instance ??= SuperRepository();
-    await DataSources.init();
-    _instance?._response = response;
+    _instance = SuperRepository();
+    await Local.init();
+    await NetworkManager.init();
+    _instance._response = response;
   }
 
-  Future<dynamic> getData({
+  Future<dynamic> get({
     required Request request,
     required BaseModel? model,
     bool shouldCache = true,
   }) async {
     try {
-      var response =
-          await sources.get(request: request, shouldCache: shouldCache);
+      dynamic response;
+      if (remoteConnection) {
+        response = await remote.send(request: request, method: HttpMethod.get);
+
+        if (response == null) {
+          throw Exceptions.fromEnumeration(ExceptionTypes.connection);
+        }
+
+        if (shouldCache) {
+          local.create(key: request.urlQuery, value: response);
+        }
+      } else if (shouldCache) {
+        response = local.read(key: request.urlQuery);
+        if (response == null) {
+          throw Exceptions.fromEnumeration(ExceptionTypes.connection);
+        }
+      } else {
+        throw Exceptions.fromEnumeration(ExceptionTypes.connection);
+      }
       return await responseFormat(response, model, request);
     } catch (_) {
       rethrow;
     }
   }
 
-  Future<dynamic> sendData({
+  Future<dynamic> post({
     required Request request,
     BaseModel? model,
     bool shouldCache = false,
   }) async {
     try {
-      var response =
-          await sources.insert(request: request, shouldCache: shouldCache);
-      return await responseFormat(response, model, request);
+      dynamic response;
+      if (remoteConnection) {
+        response = await remote.send(method: HttpMethod.post, request: request);
+
+        if (response.toString().isEmpty) {
+          throw Exceptions.fromEnumeration(ExceptionTypes.process);
+        }
+        if (shouldCache) {
+          local.create(
+              key: request.urlQuery + request.data, value: request.data);
+        }
+
+        return responseFormat(response, model, request);
+      } else if (shouldCache) {
+        request.data == local.read(key: request.urlQuery + request.data)
+            ? response = local.read(key: request.urlQuery + request.data)
+            : throw const ConflictException();
+        if (response != null) return response;
+        throw Exceptions.fromEnumeration(ExceptionTypes.connection);
+      } else {
+        throw Exceptions.fromEnumeration(ExceptionTypes.connection);
+      }
     } catch (_) {
       rethrow;
     }
   }
 
-  Future<dynamic> responseFormat(
+  Future<dynamic> update({
+    required Request request,
+    BaseModel? model,
+    bool shouldCache = false,
+  }) async {
+    try {
+      var response = remote.send(request: request, method: HttpMethod.put);
+
+      if (response.toString().isEmpty) {
+        throw Exceptions.fromEnumeration(ExceptionTypes.process);
+      }
+
+      return responseFormat(response, model, request);
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<void> delete(
+      {required Request request, required bool shouldCache}) async {
+    try {
+      var response = remote.send(request: request, method: HttpMethod.delete);
+
+      if (response.toString().isEmpty) {
+        throw Exceptions.fromEnumeration(ExceptionTypes.process);
+      }
+    } catch (exception) {
+      rethrow;
+    }
+  }
+
+  dynamic responseFormat(
       dynamic response, BaseModel? model, Request request) async {
     if (model == null) return response;
 
-    if (!(response[_instance?._response.check] ?? true)) {
-      throw response[_instance?._response.message];
+    if (!(response[_instance._response.check] ?? true)) {
+      throw response[_instance._response.message];
     }
 
-    if (response[_instance?._response.data]?.isEmpty ?? true) {
-      return response[_instance?._response.message];
+    if (response[_instance._response.data]?.isEmpty ?? true) {
+      return response[_instance._response.message];
     }
 
     response = (request.query?.containsKey('offset') ?? false) ||
             (request.query?.containsKey('page') ?? false)
-        ? (_instance?._response.pagination == null
-            ? response[_instance?._response.data]
-            : response[_instance?._response.data][_response.pagination])
-        : response[_instance?._response.data];
+        ? (_instance._response.pagination == null
+            ? response[_instance._response.data]
+            : response[_instance._response.data][_response.pagination])
+        : response[_instance._response.data];
     if (response is List) {
       return model.fromJsonList(response);
     } else if (response is Map<String, dynamic>) {
