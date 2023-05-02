@@ -23,8 +23,6 @@ part 'data/sources/remote/remote.dart';
 
 part 'data/sources/remote/request.dart';
 
-part 'response_format.dart';
-
 class SuperRepository {
   static late SuperRepository _instance;
 
