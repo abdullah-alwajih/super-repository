@@ -8,13 +8,22 @@ import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 
 part 'data/models/base.dart';
+
 part 'data/models/exceptions.dart';
+
 part 'data/models/response.dart';
+
 part 'data/sources/local/local.dart';
+
 part 'data/sources/local/storage.dart';
+
 part 'data/sources/network_manager.dart';
+
 part 'data/sources/remote/remote.dart';
+
 part 'data/sources/remote/request.dart';
+
+part 'response_format.dart';
 
 class SuperRepository {
   static late SuperRepository _instance;
@@ -66,7 +75,7 @@ class SuperRepository {
       } else {
         throw Exceptions.fromEnumeration(ExceptionTypes.connection);
       }
-      return await responseFormat(response, model, request);
+      return _instance._response.format(response, model, request);
     } catch (_) {
       rethrow;
     }
@@ -90,7 +99,7 @@ class SuperRepository {
               key: request.urlQuery + request.data, value: request.data);
         }
 
-        return responseFormat(response, model, request);
+        return _instance._response.format(response, model, request);
       } else if (shouldCache) {
         request.data == local.read(key: request.urlQuery + request.data)
             ? response = local.read(key: request.urlQuery + request.data)
@@ -117,7 +126,7 @@ class SuperRepository {
         throw Exceptions.fromEnumeration(ExceptionTypes.process);
       }
 
-      return responseFormat(response, model, request);
+      return _instance._response.format(response, model, request);
     } catch (_) {
       rethrow;
     }
@@ -133,33 +142,6 @@ class SuperRepository {
       }
     } catch (exception) {
       rethrow;
-    }
-  }
-
-  dynamic responseFormat(
-      dynamic response, BaseModel? model, Request request) async {
-    if (model == null) return response;
-
-    if (!(response[_instance._response.check] ?? true)) {
-      throw response[_instance._response.message];
-    }
-
-    if (response[_instance._response.data]?.isEmpty ?? true) {
-      return response[_instance._response.message];
-    }
-
-    response = (request.query?.containsKey('offset') ?? false) ||
-            (request.query?.containsKey('page') ?? false)
-        ? (_instance._response.pagination == null
-            ? response[_instance._response.data]
-            : response[_instance._response.data][_response.pagination])
-        : response[_instance._response.data];
-    if (response is List) {
-      return model.fromJsonList(response);
-    } else if (response is Map<String, dynamic>) {
-      return model.fromJson(response);
-    } else {
-      return response;
     }
   }
 }
