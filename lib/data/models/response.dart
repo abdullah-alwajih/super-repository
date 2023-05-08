@@ -10,7 +10,7 @@ class ResponseModel {
     this.check = 'success',
     this.message = 'message',
     this.data = 'data',
-    this.pagination = 'data',
+    this.pagination,
   });
 
   dynamic format(dynamic response, BaseModel? model, Request request) {
