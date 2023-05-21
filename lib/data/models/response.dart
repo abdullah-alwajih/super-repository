@@ -3,7 +3,7 @@ part of '../../super_repository.dart';
 class ResponseModel {
   final String check;
   final String message;
-  final String data;
+  final String? data;
   final String? pagination;
 
   const ResponseModel({
@@ -23,7 +23,9 @@ class ResponseModel {
     response = (request.query?.containsKey('offset') ?? false) ||
             (request.query?.containsKey('page') ?? false)
         ? (pagination == null ? response[data] : response[data][pagination])
-        : response[data];
+        : data != null
+            ? response[data]
+            : response;
 
     if (response is List) {
       return model.fromJsonList(response);
