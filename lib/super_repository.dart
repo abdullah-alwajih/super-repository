@@ -8,19 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 
 part 'data/models/base.dart';
-
 part 'data/models/exceptions.dart';
-
 part 'data/models/response.dart';
-
 part 'data/sources/local/local.dart';
-
 part 'data/sources/local/storage.dart';
-
 part 'data/sources/network_manager.dart';
-
 part 'data/sources/remote/remote.dart';
-
 part 'data/sources/remote/request.dart';
 
 class SuperRepository {

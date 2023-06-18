@@ -18,21 +18,20 @@ class ResponseModel {
 
     if (!(response[check] ?? true)) throw response[message];
 
-    if (response[data]?.isEmpty ?? true) return response[message];
+    final responseData = response[data];
+    if (responseData?.isEmpty ?? true) return response[message];
 
-    response = (request.query?.containsKey('offset') ?? false) ||
-            (request.query?.containsKey('page') ?? false)
-        ? (pagination == null ? response[data] : response[data][pagination])
-        : data != null
-            ? response[data]
-            : response;
+    final hasOffsetQuery = request.query?.containsKey('offset') ?? false;
+    final hasPageQuery = request.query?.containsKey('page') ?? false;
 
-    if (response is List) {
-      return model.fromJsonList(response);
-    } else if (response is Map<String, dynamic>) {
-      return model.fromJson(response);
-    } else {
-      return response;
-    }
+    final extractedData = hasOffsetQuery || hasPageQuery
+        ? (responseData?[pagination]) ?? responseData
+        : responseData ?? response;
+
+    return extractedData is List
+        ? model.fromJsonList(extractedData)
+        : extractedData is Map<String, dynamic>
+            ? model.fromJson(extractedData)
+            : extractedData;
   }
 }
