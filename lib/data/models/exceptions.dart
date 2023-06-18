@@ -7,14 +7,28 @@ abstract class Exceptions implements Exception {
 
   const Exceptions(this.message);
 
-  factory Exceptions.fromStatusCode([int? statusCode = 400, String? message]) {
+  factory Exceptions.fromStatusCode(error) {
+    final responseData = error.response?.data;
+    final statusCode = error.response?.statusCode;
+    final statusMessage = error.response?.statusMessage;
+
+    String? message;
+    if (responseData is Map) {
+      message = responseData['message'] ??
+          responseData['Message'] ??
+          responseData['error']?['message'] ??
+          statusMessage ??
+          error.message;
+    }
+
     switch (statusCode) {
       case 0:
         return CustomException(message: message);
       case 204:
         return NoContentException(message: message);
       case 400:
-        return BadRequestException(message: message);
+        return BadRequestException(
+            message: message, errors: responseData['data']);
       case 401:
         return UnauthorizedException(message: message);
       case 402:
@@ -91,7 +105,9 @@ class BadRequestException implements Exceptions {
   @override
   final String? message;
 
-  const BadRequestException({this.message});
+  final dynamic errors;
+
+  const BadRequestException({this.message, this.errors});
 }
 
 // const int statusCodes = 401;

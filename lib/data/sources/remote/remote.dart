@@ -56,16 +56,8 @@ class Remote {
       // );
 
       return response.data;
-    } on DioError catch (error) {
-      String? message;
-      if (error.response?.data is Map) {
-        message = error.response?.data['message'] ??
-            error.response?.data['Message'] ??
-            error.response?.data['error']?['message'] ??
-            error.response?.statusMessage;
-        error.message;
-      }
-      throw Exceptions.fromStatusCode(error.response?.statusCode, message);
+    } on DioException catch (error) {
+      throw Exceptions.fromStatusCode(error);
     } catch (exception) {
       rethrow;
     }

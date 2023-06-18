@@ -21,8 +21,8 @@ class ResponseModel {
     final responseData = response[data];
     if (responseData?.isEmpty ?? true) return response[message];
 
-    final hasOffsetQuery = request.query?.containsKey('offset') ?? false;
-    final hasPageQuery = request.query?.containsKey('page') ?? false;
+    final bool hasOffsetQuery = request.query?.containsKey('offset') ?? false;
+    final bool hasPageQuery = request.query?.containsKey('page') ?? false;
 
     final extractedData = hasOffsetQuery || hasPageQuery
         ? (responseData?[pagination]) ?? responseData
