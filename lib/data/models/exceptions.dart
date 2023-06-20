@@ -23,79 +23,81 @@ abstract class Exceptions implements Exception {
 
     switch (statusCode) {
       case 0:
-        return CustomException(message: message);
+        throw CustomException(message: message);
       case 204:
-        return NoContentException(message: message);
+        throw NoContentException(message: message);
       case 400:
-        return BadRequestException(
+        throw BadRequestException(
             message: message, errors: responseData['data']);
       case 401:
-        return UnauthorizedException(message: message);
+        throw UnauthorizedException(message: message);
       case 402:
-        return PaymentRequiredException(message: message);
+        throw PaymentRequiredException(message: message);
       case 403:
-        return ForbiddenException(message: message);
+        throw ForbiddenException(message: message);
       case 404:
-        return NotFoundException(message: message);
+        throw NotFoundException(message: message);
       case 405:
-        return MethodNotAllowedException(message: message);
+        throw MethodNotAllowedException(message: message);
       case 406:
-        return NotAcceptableException(message: message);
+        throw NotAcceptableException(message: message);
       case 407:
-        return ProxyAuthenticationRequiredException(message: message);
+        throw ProxyAuthenticationRequiredException(message: message);
       case 408:
-        return RequestTimeoutException(message: message);
+        throw RequestTimeoutException(message: message);
       case 409:
-        return ConflictException(message: message);
+        throw ConflictException(message: message);
       case 410:
-        return GoneException(message: message);
+        throw GoneException(message: message);
       case 411:
-        return LengthRequiredException(message: message);
+        throw LengthRequiredException(message: message);
+      case 429:
+        throw TooManyRequestsException(message: message);
       case 434:
-        return UserExistsException(message: message);
+        throw UserExistsException(message: message);
       case 439:
-        return BlockedException(message: message);
+        throw BlockedException(message: message);
       case 500:
-        return InternalServerErrorException(message: message);
+        throw InternalServerErrorException(message: message);
       case 501:
-        return NotImplementedException(message: message);
+        throw NotImplementedException(message: message);
       case 502:
-        return BadGatewayException(message: message);
+        throw BadGatewayException(message: message);
       case 503:
-        return ServiceUnavailableException(message: message);
+        throw ServiceUnavailableException(message: message);
       case 504:
-        return GatewayTimeoutException(message: message);
+        throw GatewayTimeoutException(message: message);
       case 505:
-        return HTTPVersionNotSupportedException(message: message);
+        throw HTTPVersionNotSupportedException(message: message);
       case 506:
-        return VariantAlsoNegotiatesException(message: message);
+        throw VariantAlsoNegotiatesException(message: message);
       case 507:
-        return InsufficientStorageException(message: message);
+        throw InsufficientStorageException(message: message);
       case 508:
-        return LoopDetectedException(message: message);
+        throw LoopDetectedException(message: message);
       case 510:
-        return NotExtendedException(message: message);
+        throw NotExtendedException(message: message);
       case 511:
-        return NetworkAuthenticationRequiredException(message: message);
+        throw NetworkAuthenticationRequiredException(message: message);
       default:
-        return UnexpectedException(message: message);
+        throw UnexpectedException(message: message);
     }
   }
 
   factory Exceptions.fromEnumeration(ExceptionTypes type) {
     switch (type) {
       case ExceptionTypes.cache:
-        return const CacheException();
+        throw const CacheException();
       case ExceptionTypes.process:
-        return const ProcessException();
+        throw const ProcessException();
       case ExceptionTypes.connection:
-        return const ConnectionException();
+        throw const ConnectionException();
       case ExceptionTypes.timeout:
-        return const TimeoutException();
+        throw const TimeoutException();
       case ExceptionTypes.empty:
-        return const EmptyException();
+        throw const EmptyException();
       case ExceptionTypes.unexpected:
-        return const UnexpectedException();
+        throw const UnexpectedException();
     }
   }
 }
@@ -244,6 +246,14 @@ class ExpectationFailedException implements Exceptions {
   final String? message;
 
   const ExpectationFailedException({this.message});
+}
+
+// const int statusCodes = 429;
+class TooManyRequestsException implements Exceptions {
+  @override
+  final String? message;
+
+  const TooManyRequestsException({this.message});
 }
 
 // const int statusCodes = 431;
