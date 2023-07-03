@@ -1,8 +1,8 @@
 name: super_repository
 description: A new Flutter project.
 publish_to: Abdullah-AlWajih
-version: 1.4.1
-homepage: https://github.com/Abdullah-AlWajih/super-repository
+version: 1.4.2
+homepage: https://github.com/abdullah-alwajih/super-repository
 
 environment:
   sdk: '>=2.15.0 <3.0.0'

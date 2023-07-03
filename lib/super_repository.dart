@@ -123,8 +123,10 @@ class SuperRepository {
     }
   }
 
-  Future<void> delete(
-      {required Request request, required bool shouldCache}) async {
+  Future<void> delete({
+    required Request request,
+    bool shouldCache = false,
+  }) async {
     try {
       var response = remote.send(request: request, method: HttpMethod.delete);
 
