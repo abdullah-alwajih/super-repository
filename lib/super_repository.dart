@@ -125,10 +125,10 @@ class SuperRepository {
 
   Future<void> delete({
     required Request request,
-    bool shouldCache = false,
   }) async {
     try {
-      var response = remote.send(request: request, method: HttpMethod.delete);
+      var response =
+          await remote.send(request: request, method: HttpMethod.delete);
 
       if (response.toString().isEmpty) {
         throw Exceptions.fromEnumeration(ExceptionTypes.process);
