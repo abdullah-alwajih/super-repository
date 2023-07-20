@@ -123,6 +123,24 @@ class SuperRepository {
     }
   }
 
+  Future<dynamic> partialUpdate({
+    required Request request,
+    BaseModel? model,
+    bool shouldCache = false,
+  }) async {
+    try {
+      var response = remote.send(request: request, method: HttpMethod.patch);
+
+      if (response.toString().isEmpty) {
+        throw Exceptions.fromEnumeration(ExceptionTypes.process);
+      }
+
+      return _instance._response.format(response, model, request);
+    } catch (_) {
+      rethrow;
+    }
+  }
+
   Future<void> delete({
     required Request request,
   }) async {

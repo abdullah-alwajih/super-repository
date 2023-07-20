@@ -1,6 +1,6 @@
 part of '../../../super_repository.dart';
 
-enum HttpMethod { get, post, put, delete }
+enum HttpMethod { get, post, patch, put, delete }
 
 class Remote {
   static Remote? _instance;
