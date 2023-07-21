@@ -7,7 +7,7 @@ abstract class Exceptions implements Exception {
 
   const Exceptions(this.message);
 
-  factory Exceptions.fromStatusCode(error) {
+  static fromStatusCode(error) {
     final responseData = error.response?.data;
     final statusCode = error.response?.statusCode;
     final statusMessage = error.response?.statusMessage;
