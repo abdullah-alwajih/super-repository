@@ -111,7 +111,8 @@ class SuperRepository {
     bool shouldCache = false,
   }) async {
     try {
-      var response = remote.send(request: request, method: HttpMethod.put);
+      var response =
+          await remote.send(request: request, method: HttpMethod.put);
 
       if (response.toString().isEmpty) {
         throw Exceptions.fromEnumeration(ExceptionTypes.process);
@@ -129,7 +130,8 @@ class SuperRepository {
     bool shouldCache = false,
   }) async {
     try {
-      var response = remote.send(request: request, method: HttpMethod.patch);
+      var response =
+          await remote.send(request: request, method: HttpMethod.patch);
 
       if (response.toString().isEmpty) {
         throw Exceptions.fromEnumeration(ExceptionTypes.process);
