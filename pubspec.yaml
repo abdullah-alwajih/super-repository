@@ -1,11 +1,10 @@
 name: super_repository
-description: A new Flutter project.
-publish_to: Abdullah-AlWajih
+description: "A new Flutter project."
 version: 1.5.3
 homepage: https://github.com/abdullah-alwajih/super-repository
 
 environment:
-  sdk: '>=2.15.0 <3.0.0'
+  sdk: ^3.11.5
   flutter: ">=1.17.0"
 
 dependencies:
@@ -13,8 +12,8 @@ dependencies:
     sdk: flutter
 
   # remote
-  dio: ^5.3.0
-  connectivity_plus: ^4.0.1
+  dio: ^5.9.2
+  connectivity_plus: ^7.1.1
 
   # local
   get_storage: ^2.1.1
@@ -22,4 +21,4 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.1
+  flutter_lints: ^6.0.0

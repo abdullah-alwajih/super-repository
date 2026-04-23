@@ -28,8 +28,10 @@ class NetworkManager {
     }
   }
 
-  Future<void> _updateState(ConnectivityResult result) async {
-    if (result != ConnectivityResult.none) {
+  // UPDATED: Accept a List of ConnectivityResult instead of a single result
+  Future<void> _updateState(List<ConnectivityResult> results) async {
+    // If the results list doesn't contain 'none', the device has some type of connection
+    if (!results.contains(ConnectivityResult.none)) {
       _hasConnection = await checkUserConnection();
     } else {
       _hasConnection = false;
